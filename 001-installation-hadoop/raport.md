@@ -4,10 +4,9 @@
 ### I - Installation Cluster Hadoop
 
 **1 - Installation docker** 
-```cmd
-> docker version
 ```
-```output
+> docker version
+
 ## output
 Client:
  Version:           29.1.2
@@ -37,11 +36,12 @@ Server: Docker Desktop 4.54.0 (212467)
   Version:          0.19.0
   GitCommit:        de40ad0
 ```
+
 **2 - Télécharger l’image hadoop-spark-cluster**
-```cmd
+```
 > docker pull yassern1/hadoop-spark-jupyter:1.0.3
 ```
-```output
+```
 ## output perndant install
 7c457f213c76: Pull complete
 4f4fb700ef54: Pull complete
@@ -63,7 +63,7 @@ b551d0588ff7: Waiting
 916b439a2e8b: Waiting
 5c336d7045ea: Waiting
 ```
-```output
+```
 ## output après install
 1.0.3: Pulling from yassern1/hadoop-spark-jupyter
 7c457f213c76: Pull complete
@@ -89,10 +89,10 @@ Digest: sha256:511eec146b04568b392ff0a3522c54b47d7c010181334c96bcc9dbbe17ca2fa3
 Status: Downloaded newer image for yassern1/hadoop-spark-jupyter:1.0.3
 docker.io/yassern1/hadoop-spark-jupyter:1.0.3
 ```
-```cmd
+```
 > docker images
-```
-```
+
+## output
                                                                                 i Info →   U  In Use
 IMAGE                                  ID             DISK USAGE   CONTENT SIZE   EXTRA
 creamy-next-app:latest                 513abac24737        249MB             0B    U
@@ -101,11 +101,12 @@ mysql:latest                           2c849dee4ca9        859MB             0B 
 postgres:latest                        194f5f2a900a        456MB             0B
 yassern1/hadoop-spark-jupyter:1.0.3    aa7263287dc0       2.37GB             0B
 ```
+
 **3 - Création d’un volume de partage**
-```cmd
-> dir
 ```
-```output
+> dir
+
+## output
  Directory of C:\..\..\..\SUPMTI\big-data
 
 08/01/2026  17:25    <DIR>          .
@@ -113,11 +114,12 @@ yassern1/hadoop-spark-jupyter:1.0.3    aa7263287dc0       2.37GB             0B
 08/01/2026  17:25    <DIR>          001-installation-hadoop
 08/01/2026  17:25    <DIR>          shared-hadoop-project
 ```
+
 **4 - Création du cluster (trois conteneurs)**
-```cmd
-> docker compose up --build -d
 ```
-```output
+> docker compose up --build -d
+
+## output
 [+] Running 4/4
  ✔ Network 001-installation-hadoop_hadoop  Created                                                                 0.0s
  ✔ Container hadoop-slave1                 Started                                                                 0.6s
@@ -125,3 +127,66 @@ yassern1/hadoop-spark-jupyter:1.0.3    aa7263287dc0       2.37GB             0B
  ✔ Container hadoop-slave2                 Started                                                                 0.5s
 ```
 ![](/001-installation-hadoop/001-installation-hadoop_docker-desktop.png)
+
+**5 - Accéder au master**
+```cmd
+> docker exec -it hadoop-master bash
+
+## output
+root@hadoop-master:~#
+```
+
+**6 - Démarrer hadoop et yarn**
+```
+root@hadoop-master:~# ./start-hadoop.sh
+
+## output
+Starting namenodes on [hadoop-master]
+hadoop-master: Warning: Permanently added 'hadoop-master,172.20.0.4' (ECDSA) to the list of known hosts.
+hadoop-master: WARNING: HADOOP_NAMENODE_OPTS has been replaced by HDFS_NAMENODE_OPTS. Using value of HADOOP_NAMENODE_OPTS.
+Starting datanodes
+WARNING: HADOOP_SECURE_DN_LOG_DIR has been replaced by HADOOP_SECURE_LOG_DIR. Using value of HADOOP_SECURE_DN_LOG_DIR.
+hadoop-slave2: Warning: Permanently added 'hadoop-slave2,172.20.0.3' (ECDSA) to the list of known hosts.
+hadoop-slave1: Warning: Permanently added 'hadoop-slave1,172.20.0.2' (ECDSA) to the list of known hosts.
+hadoop-slave2: WARNING: HADOOP_SECURE_DN_LOG_DIR has been replaced by HADOOP_SECURE_LOG_DIR. Using value of HADOOP_SECURE_DN_LOG_DIR.
+hadoop-slave2: WARNING: HADOOP_DATANODE_OPTS has been replaced by HDFS_DATANODE_OPTS. Using value of HADOOP_DATANODE_OPTS.
+hadoop-slave1: WARNING: HADOOP_SECURE_DN_LOG_DIR has been replaced by HADOOP_SECURE_LOG_DIR. Using value of HADOOP_SECURE_DN_LOG_DIR.
+hadoop-slave1: WARNING: HADOOP_DATANODE_OPTS has been replaced by HDFS_DATANODE_OPTS. Using value of HADOOP_DATANODE_OPTS.
+Starting secondary namenodes [hadoop-master]
+hadoop-master: Warning: Permanently added 'hadoop-master,172.20.0.4' (ECDSA) to the list of known hosts.
+hadoop-master: WARNING: HADOOP_SECONDARYNAMENODE_OPTS has been replaced by HDFS_SECONDARYNAMENODE_OPTS. Using value of HADOOP_SECONDARYNAMENODE_OPTS.
+Starting resourcemanager
+Starting nodemanagers
+hadoop-slave1: Warning: Permanently added 'hadoop-slave1,172.20.0.2' (ECDSA) to the list of known hosts.
+hadoop-slave2: Warning: Permanently added 'hadoop-slave2,172.20.0.3' (ECDSA) to the list of known hosts.
+```
+![name node web UI](/001-installation-hadoop/001-installation-hadoop_namenode-web-ui.png "name node web UI")
+![ressource manager UI](/001-installation-hadoop/001-installation-hadoop_ressource-manager-ui.png "ressource manager UI")
+
+**7 - Manipulations sur HDFS**
+```
+root@hadoop-master:~# hdfs dfs -mkdir input
+
+## output
+mkdir: `hdfs://hadoop-master:9000/user/root': No such file or directory
+
+root@hadoop-master:~# hadoop fs -mkdir -p /user/root
+root@hadoop-master:~# hdfs dfs -mkdir input
+root@hadoop-master:~# hdfs dfs -ls
+
+## output
+Found 1 items
+drwxr-xr-x   - root supergroup          0 2026-01-08 20:03 input 
+
+root@hadoop-master:~# hdfs dfs -ls -R -h ./
+
+## output
+drwxr-xr-x   - root supergroup          0 2026-01-08 20:03 input
+
+root@hadoop-master:~# hdfs dfs -put /shared_volume/purchases.txt .
+root@hadoop-master:~# hdfs dfs -ls -R
+
+## output
+drwxr-xr-x   - root supergroup          0 2026-01-08 20:03 input
+-rw-r--r--   2 root supergroup       2549 2026-01-08 20:25 purchases.txt
+```
