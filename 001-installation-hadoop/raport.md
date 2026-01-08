@@ -129,7 +129,7 @@ yassern1/hadoop-spark-jupyter:1.0.3    aa7263287dc0       2.37GB             0B
 ![](/001-installation-hadoop/001-installation-hadoop_docker-desktop.png)
 
 **5 - Accéder au master**
-```cmd
+```
 > docker exec -it hadoop-master bash
 
 ## output
