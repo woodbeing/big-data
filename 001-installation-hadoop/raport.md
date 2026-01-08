@@ -189,4 +189,145 @@ root@hadoop-master:~# hdfs dfs -ls -R
 ## output
 drwxr-xr-x   - root supergroup          0 2026-01-08 20:03 input
 -rw-r--r--   2 root supergroup       2549 2026-01-08 20:25 purchases.txt
+
+root@hadoop-master:~# hdfs dfs -cat purchases.txt
+
+## output
+2012-01-01      09:00   San Jose        Men's Clothing  214.05  Amex
+2012-01-01      09:00   Fort Worth      Women's Clothing        153.57  Visa
+2012-01-01      09:00   San Diego       Music   66.08   Cash
+2012-01-01      09:00   Pittsburgh      Pet Supplies    493.51  Discover
+2012-01-01      09:00   Omaha   Children's Clothing     235.63  MasterCard
+2012-01-01      09:00   Stockton        Men's Clothing  247.18  MasterCard
+2012-01-01      09:00   Austin  Cameras 379.6   Visa
+2012-01-01      09:00   New York        Consumer Electronics    296.8   Cash
+2012-01-01      09:00   Corpus Christi  Toys    25.38   Discover
+2012-01-01      09:00   Fort Worth      Toys    213.88  Visa
+2012-01-01      09:00   Las Vegas       Video Games     53.26   Visa
+2012-01-01      09:00   Newark  Video Games     39.75   Cash
+2012-01-01      09:00   Austin  Cameras 469.63  MasterCard
+2012-01-01      09:00   Greensboro      DVDs    290.82  MasterCard
+2012-01-01      09:00   San Francisco   Music   260.65  Discover
+2012-01-01      09:00   Lincoln Garden  136.9   Visa
+2012-01-01      09:00   Buffalo Women's Clothing        483.82  Visa
+2012-01-01      09:00   San Jose        Women's Clothing        215.82  Cash
+2012-01-01      09:00   Boston  Cameras 418.94  Amex
+2012-01-01      09:00   Houston Baby    309.16  Visa
+2012-01-01      09:00   Las Vegas       Books   93.39   Visa
+2012-01-01      09:00   Virginia Beach  Children's Clothing     376.11  Amex
+2012-01-01      09:01   Riverside       Consumer Electronics    252.88  Cash
+2012-01-01      09:01   Tulsa   Baby    205.06  Visa
+2012-01-01      09:01   Reno    Crafts  88.25   Visa
+2012-01-01      09:01   Chicago Books   31.08   Cash
+2012-01-01      09:01   Fort Wayne      Men's Clothing  370.55  Amex
+2012-01-01      09:01   San Bernardino  Consumer Electronics    170.2   Cash
+2012-01-01      09:01   Madison Men's Clothing  16.78   Visa
+2012-01-01      09:01   Austin  Sporting Goods  327.75  Discover
+2012-01-01      09:01   Portland        CDs     108.69  Amex
+2012-01-01      09:01   Riverside       Sporting Goods  15.41   Discover
+2012-01-01      09:01   Reno    Toys    80.46   Visa
+2012-01-01      09:01   Anchorage       Music   298.86  MasterCard
+2012-01-01      09:01   Pittsburgh      Sporting Goods  475.26  Amex
+2012-01-01      09:01   Spokane Garden  3.85    Amex
+2012-01-01      09:01   Spokane Computers       287.65  MasterCard
+2012-01-01      09:01   Fresno  CDs     466.64  MasterCard
+2012-01-01      09:01   Omaha   Baby    255.68  MasterCard
+2012-01-01      09:01   Anchorage       DVDs    6.38    Amex
+2012-01-01      09:01   Aurora  Consumer Electronics    117.81  MasterCard
+2012-01-01      09:01   Philadelphia    DVDs    351.31  Cash
+2012-01-01      09:01   Fremont Baby    222.61  Cash
+2012-01-01      09:01   Anchorage       Crafts  22.36   Amex
+2012-01-01      09:02   Norfolk Women's Clothing        189.01  Amex
+2012-01-01      09:02   Chandler        Books   414.08  Cash
+2012-01-01      09:02   Minneapolis     Computers       182.05  Visa
+2012-01-01      09:02   Honolulu        Cameras 345.18  Discover
+2012-01-01      09:02   Indianapolis    Books   135.96  Discover
+2012-01-01      09:02   Chandler        Books   344.09  Discover
+
+root@hadoop-master:~# hdfs dfs -tail purchases.txt
+
+## output
+ustin   Sporting Goods  327.75  Discover
+2012-01-01      09:01   Portland        CDs     108.69  Amex
+2012-01-01      09:01   Riverside       Sporting Goods  15.41   Discover
+2012-01-01      09:01   Reno    Toys    80.46   Visa
+2012-01-01      09:01   Anchorage       Music   298.86  MasterCard
+2012-01-01      09:01   Pittsburgh      Sporting Goods  475.26  Amex
+2012-01-01      09:01   Spokane Garden  3.85    Amex
+2012-01-01      09:01   Spokane Computers       287.65  MasterCard
+2012-01-01      09:01   Fresno  CDs     466.64  MasterCard
+2012-01-01      09:01   Omaha   Baby    255.68  MasterCard
+2012-01-01      09:01   Anchorage       DVDs    6.38    Amex
+2012-01-01      09:01   Aurora  Consumer Electronics    117.81  MasterCard
+2012-01-01      09:01   Philadelphia    DVDs    351.31  Cash
+2012-01-01      09:01   Fremont Baby    222.61  Cash
+2012-01-01      09:01   Anchorage       Crafts  22.36   Amex
+2012-01-01      09:02   Norfolk Women's Clothing        189.01  Amex
+2012-01-01      09:02   Chandler        Books   414.08  Cash
+2012-01-01      09:02   Minneapolis     Computers       182.05  Visa
+2012-01-01      09:02   Honolulu        Cameras 345.18  Discover
+2012-01-01      09:02   Indianapolis    Books   135.96  Discover
+2012-01-01      09:02   Chandler        Books   344.09  Discover
+
+root@hadoop-master:~# hdfs dfs -rm purchases.txt
+
+## output
+Deleted purchases.txt
+
+root@hadoop-master:~# hdfs dfs -copyFromLocal /shared_volume/purchases.txt ./input
+root@hadoop-master:~# hdfs dfs -ls
+
+## output
+Found 1 items
+drwxr-xr-x   - root supergroup          0 2026-01-08 20:44 input
+
+root@hadoop-master:~# hdfs dfs -ls -R
+
+## output
+drwxr-xr-x   - root supergroup          0 2026-01-08 20:44 input
+-rw-r--r--   2 root supergroup       2549 2026-01-08 20:44 input/purchases.txt
+
+root@hadoop-master:~# hdfs dfs -chmod 777 ./input/purchases.txt
+root@hadoop-master:~# hdfs dfs -ls -R
+
+## output
+drwxr-xr-x   - root supergroup          0 2026-01-08 20:44 input
+-rwxrwxrwx   2 root supergroup       2549 2026-01-08 20:44 input/purchases.txt
+
+root@hadoop-master:~# hdfs dfs -chmod ugo-x ./input/purchases.txt
+root@hadoop-master:~# hdfs dfs -ls -R
+
+## output
+drwxr-xr-x   - root supergroup          0 2026-01-08 20:44 input
+-rw-rw-rw-   2 root supergroup       2549 2026-01-08 20:44 input/purchases.txt
+
+root@hadoop-master:~# hdfs dfs -get ./input/purchases.txt /shared_volume/achat.txt
+```
+
+**8 - télécharger un fichier sur hdfs**
+```
+root@hadoop-master:~# hdfs dfs -mkdir web_input
+```
+```
+> wget http://www.textfiles.com/etext/FICTION/alice.txt
+
+## output
+--2026-01-08 20:56:44--  http://www.textfiles.com/etext/FICTION/alice.txt
+Resolving www.textfiles.com (www.textfiles.com)... 208.86.224.90
+Connecting to www.textfiles.com (www.textfiles.com)|208.86.224.90|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 150886 (147K) [text/plain]
+Saving to: 'alice.txt'
+
+alice.txt                              100%[============================================================================>] 147.35K   468KB/s    in 0.3s
+
+2026-01-08 20:56:45 (468 KB/s) - 'alice.txt' saved [150886/150886]
+```
+```
+root@hadoop-master:~# hdfs dfs -put /shared_volume/alice.txt web_input
+root@hadoop-master:~# hdfs dfs -ls web_input
+
+## output
+Found 1 items
+-rw-r--r--   2 root supergroup     150886 2026-01-08 21:01 web_input/alice.txt
 ```
