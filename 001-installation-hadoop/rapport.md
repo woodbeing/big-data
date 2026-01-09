@@ -1,10 +1,12 @@
 # Rapport d'installation hadoop
+
 ## envirenement windows
 
 ### I - Installation Cluster Hadoop
 
-**1 - Installation docker** 
-```
+#### 1 - Installation docker
+
+```text
 > docker version
 
 ## output
@@ -37,12 +39,14 @@ Server: Docker Desktop 4.54.0 (212467)
   GitCommit:        de40ad0
 ```
 
-**2 - Télécharger l’image hadoop-spark-cluster**
-```
+#### 2 - Télécharger l’image hadoop-spark-cluster
+
+```text
 > docker pull yassern1/hadoop-spark-jupyter:1.0.3
 ```
-```
-## output perndant install
+
+```text
+## output pendant install
 7c457f213c76: Pull complete
 4f4fb700ef54: Pull complete
 88defd485d1b: Downloading [=====================================>             ]  155.7MB/208.1MB
@@ -63,7 +67,8 @@ b551d0588ff7: Waiting
 916b439a2e8b: Waiting
 5c336d7045ea: Waiting
 ```
-```
+
+```text
 ## output après install
 1.0.3: Pulling from yassern1/hadoop-spark-jupyter
 7c457f213c76: Pull complete
@@ -89,7 +94,8 @@ Digest: sha256:511eec146b04568b392ff0a3522c54b47d7c010181334c96bcc9dbbe17ca2fa3
 Status: Downloaded newer image for yassern1/hadoop-spark-jupyter:1.0.3
 docker.io/yassern1/hadoop-spark-jupyter:1.0.3
 ```
-```
+
+```text
 > docker images
 
 ## output
@@ -102,8 +108,9 @@ postgres:latest                        194f5f2a900a        456MB             0B
 yassern1/hadoop-spark-jupyter:1.0.3    aa7263287dc0       2.37GB             0B
 ```
 
-**3 - Création d’un volume de partage**
-```
+#### 3 - Création d’un volume de partage
+
+```text
 > dir
 
 ## output
@@ -115,8 +122,9 @@ yassern1/hadoop-spark-jupyter:1.0.3    aa7263287dc0       2.37GB             0B
 08/01/2026  17:25    <DIR>          shared-hadoop-project
 ```
 
-**4 - Création du cluster (trois conteneurs)**
-```
+#### 4 - Création du cluster (trois conteneurs)
+
+```text
 > docker compose up --build -d
 
 ## output
@@ -126,18 +134,21 @@ yassern1/hadoop-spark-jupyter:1.0.3    aa7263287dc0       2.37GB             0B
  ✔ Container hadoop-master                 Started                                                                 0.9s
  ✔ Container hadoop-slave2                 Started                                                                 0.5s
 ```
-![](/001-installation-hadoop/001-installation-hadoop_docker-desktop.png)
 
-**5 - Accéder au master**
-```
-> docker exec -it hadoop-master bash
+![docker desktop](/001-installation-hadoop/001-installation-hadoop_docker-desktop.png "docker desktop")
+
+#### 5 - Accéder au master
+
+```text
+> docker exec -it hadoop-master text
 
 ## output
 root@hadoop-master:~#
 ```
 
-**6 - Démarrer hadoop et yarn**
-```
+#### 6 - Démarrer hadoop et yarn
+
+```text
 root@hadoop-master:~# ./start-hadoop.sh
 
 ## output
@@ -160,11 +171,13 @@ Starting nodemanagers
 hadoop-slave1: Warning: Permanently added 'hadoop-slave1,172.20.0.2' (ECDSA) to the list of known hosts.
 hadoop-slave2: Warning: Permanently added 'hadoop-slave2,172.20.0.3' (ECDSA) to the list of known hosts.
 ```
+
 ![name node web UI](/001-installation-hadoop/001-installation-hadoop_namenode-web-ui.png "name node web UI")
 ![ressource manager UI](/001-installation-hadoop/001-installation-hadoop_ressource-manager-ui.png "ressource manager UI")
 
-**7 - Manipulations sur HDFS**
-```
+#### 7 - Manipulations sur HDFS
+
+```text
 root@hadoop-master:~# hdfs dfs -mkdir input
 
 ## output
@@ -304,11 +317,13 @@ drwxr-xr-x   - root supergroup          0 2026-01-08 20:44 input
 root@hadoop-master:~# hdfs dfs -get ./input/purchases.txt /shared_volume/achat.txt
 ```
 
-**8 - télécharger un fichier sur hdfs**
-```
+#### 8 - télécharger un fichier sur hdfs
+
+```text
 root@hadoop-master:~# hdfs dfs -mkdir web_input
 ```
-```
+
+```text
 > wget http://www.textfiles.com/etext/FICTION/alice.txt
 
 ## output
@@ -323,7 +338,8 @@ alice.txt                              100%[====================================
 
 2026-01-08 20:56:45 (468 KB/s) - 'alice.txt' saved [150886/150886]
 ```
-```
+
+```text
 root@hadoop-master:~# hdfs dfs -put /shared_volume/alice.txt web_input
 root@hadoop-master:~# hdfs dfs -ls web_input
 
