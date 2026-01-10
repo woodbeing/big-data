@@ -13,11 +13,11 @@ public class HadoopFileStatus {
         try {
             fs = FileSystem.get(conf);
 
-            Path filepath = new Path("/user/root/input", "purchases.txt");
+            Path filepath = new Path(args[0], args[1]);
             FileStatus infos = fs.getFileStatus(filepath);
 
             if (!fs.exists(filepath)) {
-                System.out.println("File does not exists");
+                System.out.println("File " + args[1] + " does not exists");
                 System.exit(1);
             }
 
@@ -44,7 +44,7 @@ public class HadoopFileStatus {
                 System.out.println();
             }
 
-            fs.rename(filepath, new Path("/user/root/input", "achats.txt"));
+            fs.rename(filepath, new Path(args[0], args[2]));
         } catch (IOException e) {
             e.printStackTrace();
         }
