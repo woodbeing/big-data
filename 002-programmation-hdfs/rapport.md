@@ -19,11 +19,13 @@
 #### 2 - Accéder au master
 
 ```text
-> docker exec -it hadoop-master text
+> docker exec -it hadoop-master bash
 
 ## output
 root@hadoop-master:~#
 ```
+
+#### 3 - Démarrer hadoop et yarn
 
 ```text
 root@hadoop-master:~# ./start-hadoop.sh
@@ -47,8 +49,9 @@ Starting resourcemanager
 Starting nodemanagers
 hadoop-slave2: Warning: Permanently added 'hadoop-slave2,172.20.0.3' (ECDSA) to the list of known hosts.
 hadoop-slave1: Warning: Permanently added 'hadoop-slave1,172.20.0.2' (ECDSA) to the list of known hosts.
+```
 
-
+```text
 root@hadoop-master:~# jps
 
 ## output
