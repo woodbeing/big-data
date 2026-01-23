@@ -65,14 +65,11 @@ root@hadoop-master:~# jps
 
 #### 1 - nstallation de l’environnement de développement
 
-* [lab1](/002-programmation-hdfs/lab1)
-  * [pom.xml](/002-programmation-hdfs/lab1/pom.xml)
+[pom.xml](/002-programmation-hdfs/lab1/pom.xml)
 
 #### 2 - Premier exemple
 
-* [lab1](/002-programmation-hdfs/lab1)
-  * [src](/002-programmation-hdfs/lab1/src)
-    * [java/edu/supmti/hadoop/HadoopFileStatus.java](/002-programmation-hdfs/lab1/src/main/java/edu/supmti/hadoop/HadoopFileStatus.java)
+[HadoopFileStatus.java](/002-programmation-hdfs/lab1/src/main/java/edu/supmti/hadoop/HadoopFileStatus.java)
 
 pom.xml (partie `<build>...</build>`)
 
@@ -166,9 +163,7 @@ Block hosts: hadoop-slave2 hadoop-slave1
 
 #### 3 - Lire un fichier sur HDFS
 
-* [lab1](/002-programmation-hdfs/lab1)
-  * [src](/002-programmation-hdfs/lab1/src)
-    * [java/edu/supmti/hadoop/ReadHDFS.java](/002-programmation-hdfs/lab1/src/main/java/edu/supmti/hadoop/ReadHDFS.java)
+[ReadHDFS.java](/002-programmation-hdfs/lab1/src/main/java/edu/supmti/hadoop/ReadHDFS.java)
 
 pom.xml (partie `<build>...</build>`)
 
@@ -327,9 +322,7 @@ null
 
 #### 4 - Ecrire un fichier sur HDFS
 
-* [lab1](/002-programmation-hdfs/lab1)
-  * [src](/002-programmation-hdfs/lab1/src)
-    * [java/edu/supmti/hadoop/WriteHDFS.java](/002-programmation-hdfs/lab1/src/main/java/edu/supmti/hadoop/WriteHDFS.java)
+[WriteHDFS.java](/002-programmation-hdfs/lab1/src/main/java/edu/supmti/hadoop/WriteHDFS.java)
 
 pom.xml (partie `<build>...</build>`)
 
