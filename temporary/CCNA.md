@@ -32,6 +32,8 @@ Switch(config)# hostname <your-host-name>
 <your-host-name>(config)# end
 ```
 
+detailled commands  
+
 ```text
 enable
 ```
